@@ -8,7 +8,19 @@ const photos = [
   'https://picsum.photos/id/1001/200/200', 
 ]
 
+const initialState = {
+  pics: [],
+  isVisible: false,
+  count: null,
+  inputs: {
+    title: '',
+    file: null,
+    path: null
+  }
+}
 function App() {
+  const [state, dispatch] = useReducer(myReducer, initialState)
+  
   const [count, setCount] = useState(null)
   const [inputs, setInput] = useState({
     title: '', 
