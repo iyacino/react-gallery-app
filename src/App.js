@@ -6,26 +6,10 @@ import {Context} from './context/Context'
 
 function App() {
 
-  const {state, dispatch} = useContext(Context)
-  const handleAddClick = () =>{
-    dispatch({type: 'clicking-add'})
-  }
-  const handleChange = (event) =>{
-    dispatch({type: 'fill-inputs', payload: {value: event}})
-  }
-  const handleSubmit = (event) =>{
-    event.preventDefault()
-    dispatch({type: 'adding-pic'})
-    dispatch({type: 'clicking-add'})
-    } 
+  const {state} = useContext(Context)
   return (
     <>
-        <Layout 
-          onChange= {handleChange}
-          onSubmit= {handleSubmit}
-          onClick= {handleAddClick}
-          state={state}
-        >
+        <Layout>
         <div className="container text-center mt-5 mb-5">
           <h1>Gallery</h1>
         </div>

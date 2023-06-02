@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import NavBar from './NavBar'
 import UploadForm from './UploadForm'
+import { Context } from '../context/Context'
 
-function Layout({onChange, onSubmit, onClick, state, children}) {
+function Layout({children}) {
+    const {state, dispatch} = useContext(Context)
+    const handleAddClick = () =>{
+        dispatch({type: 'clicking-add'})
+      }
   return (
     <>
         <NavBar />
         <div className="container text-center mt-5">
-            <button className="btn btn-success float-end" onClick={onClick}>{ state.isVisible ? 'Close' : 'Add'}</button>
-            <UploadForm isVisible={state.isVisible} handleChange={onChange} handleSubmit={onSubmit} inputs={state.inputs}/>
+            <button className="btn btn-success float-end" onClick={handleAddClick}>{ state.isVisible ? 'Close' : 'Add'}</button>
+            <UploadForm />
             {children}
         </div>
         

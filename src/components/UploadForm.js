@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { Context } from "../context/Context";
 
 const Preview = ({inputs}) =>{
     return(
@@ -14,18 +15,27 @@ const Preview = ({inputs}) =>{
     )
 }
 
-const UploadForm = ({ isVisible, handleChange, handleSubmit, inputs}) => {
-    
+const UploadForm = () => {
+  const {state, dispatch} = useContext(Context)
+
+  const handleChange = (event) =>{
+    dispatch({type: 'fill-inputs', payload: {value: event}})
+  }
+  const handleSubmit = (event) =>{
+    event.preventDefault()
+    dispatch({type: 'adding-pic'})
+    dispatch({type: 'clicking-add'})
+    } 
     const idDisabled = useMemo(() => {
-        return  Object.values(inputs).some(input => !input)
+        return  Object.values(state.inputs).some(input => !input)
     }
-    , [inputs])
+    , [state.inputs])
     
     return (
-      isVisible && <>
+      state.isVisible && <>
       <p className="display-6 text-center mb-3">Upload Stock Image</p>
       <div className="mb-5 d-flex align-items-center justify-content-center">
-        <Preview inputs={inputs}/>
+        <Preview inputs={state.inputs}/>
         <form className="mb-2" style={{ textAlign: "left" }} onSubmit={handleSubmit}>
           <div className="mb-3">
             <input
